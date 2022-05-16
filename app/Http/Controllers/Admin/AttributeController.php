@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Validated;
-Use Alert;
-use App\Models\Brand;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class BrandController extends Controller
+class AttributeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,9 @@ class BrandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        
-        $brands = Brand::latest()->paginate(20);
-        return view('admin.brands.index' , compact('brands'));
+    {
+        $attributes = Attribute::latest()->paginate(20);
+        return view('admin.attributes.index' , compact('attributes'));
     }
 
     /**
@@ -29,7 +26,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('admin.brands.create');
+        return view('admin.attributes.create');
     }
 
     /**
@@ -40,18 +37,16 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-       // dd($request->all());
-       $request->validate([
-           'name' => 'required'
-       ]);
-        Brand::create([
-            'name' => $request->name,
-            'is_active' => $request->is_active,
+        $request->validate([
+            'name' => 'required'
         ]);
-        alert()->success('با تشکر', 'برند مورد نظر ایجاد شد');
 
-        return redirect()->route('admin.brands.index');
+        Attribute::create([
+            'name' => $request->name
+        ]);
 
+        alert()->success('ویژگی مورد نظر ایجاد شد', 'باتشکر');
+        return redirect()->route('admin.attributes.index');
     }
 
     /**
@@ -60,9 +55,9 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
+    public function show(Attribute $attribute)
     {
-      return view('admin.brands.show' , compact('brand'));
+        return view('admin.attributes.show' , compact('attribute'));
     }
 
     /**
@@ -71,9 +66,9 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit(Attribute $attribute)
     {
-      return view('admin.brands.edit' , compact('brand'));
+        return view('admin.attributes.edit' , compact('attribute')); 
     }
 
     /**
@@ -83,17 +78,17 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, Attribute $attribute)
     {
         $request->validate([
             'name' => 'required'
         ]);
-         $brand->update([
-             'name' => $request->name,
-             'is_active' => $request->is_active,
+         $attribute->update([
+             'name' => $request->name
          ]);
-         alert()->success('با تشکر', 'برند مورد نظر ویرایش شد');
-         return redirect()->route('admin.brands.index');
+         alert()->success('با تشکر', 'خصوصیت مورد نظر ویرایش شد');
+ 
+         return redirect()->route('admin.attributes.index');
     }
 
     /**

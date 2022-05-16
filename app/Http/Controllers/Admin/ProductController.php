@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Validated;
-Use Alert;
 use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,8 @@ class BrandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        
-        $brands = Brand::latest()->paginate(20);
-        return view('admin.brands.index' , compact('brands'));
+    {
+        //
     }
 
     /**
@@ -29,7 +27,12 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('admin.brands.create');
+        $brands = Brand::all();
+        $tags = Tag::all();
+
+        $categories = Category::where('parent_id', '!=', 0)->get();
+
+        return view('admin.products.create', compact('brands', 'tags', 'categories'));
     }
 
     /**
@@ -40,18 +43,7 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-       // dd($request->all());
-       $request->validate([
-           'name' => 'required'
-       ]);
-        Brand::create([
-            'name' => $request->name,
-            'is_active' => $request->is_active,
-        ]);
-        alert()->success('با تشکر', 'برند مورد نظر ایجاد شد');
-
-        return redirect()->route('admin.brands.index');
-
+        dd($request->all());
     }
 
     /**
@@ -60,9 +52,9 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
+    public function show($id)
     {
-      return view('admin.brands.show' , compact('brand'));
+        //
     }
 
     /**
@@ -71,9 +63,9 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit($id)
     {
-      return view('admin.brands.edit' , compact('brand'));
+        //
     }
 
     /**
@@ -83,17 +75,9 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required'
-        ]);
-         $brand->update([
-             'name' => $request->name,
-             'is_active' => $request->is_active,
-         ]);
-         alert()->success('با تشکر', 'برند مورد نظر ویرایش شد');
-         return redirect()->route('admin.brands.index');
+        //
     }
 
     /**

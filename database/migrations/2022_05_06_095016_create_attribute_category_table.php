@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
 
             $table->foreignId('category_id');
-            $table->foreign('category_id')->references('id')->on('categorise')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->boolean('is_filter')->default(0);
             $table->boolean('is_variation')->default(0);

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('brand_id');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->foreignId('category_id');
-            $table->foreign('category_id')->references('id')->on('categorise')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('slug')->unique();
             $table->string('primary_image');
             $table->text('description');

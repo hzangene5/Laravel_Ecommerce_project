@@ -25,7 +25,7 @@
                     </div>
 
                   <div class="form-group col-md-3">
-                    <label for="is_active">نام</label>
+                    <label for="is_active">وضعیت</label>
                        <select class="form-group" id="is_active" name="is_active" >
                          <option value="1" {{ $brand->getRawOriginal('is_active') ? 'selected' : '' }}>فعال</option>
                          <option value="0"  {{ $brand->getRawOriginal('is_active') ? 'selected' : '' }}>غیر فعال</option>
