@@ -46,8 +46,10 @@ class CategoryController extends Controller
             'slug' => 'required|unique:categories,slug',
             'parent_id' => 'required',
             'attribute_ids' => 'required',
+            'attribute_ids.*' => 'exists:attributes,id',
             'attribute_is_filter_ids' => 'required',
-            'variation_id' => 'required',
+            'attribute_is_filter_ids.*' => 'exists:attributes,id',
+            'variation_id' => 'required|exists:attributes,id',
         ]);
 
         try {
@@ -120,8 +122,10 @@ class CategoryController extends Controller
             'slug' => 'required|unique:categories,slug,' . $category->id,
             'parent_id' => 'required',
             'attribute_ids' => 'required',
+            'attribute_ids.*' => 'exists:attributes,id',
             'attribute_is_filter_ids' => 'required',
-            'variation_id' => 'required',
+            'attribute_is_filter_ids.*' => 'exists:attributes,id',
+            'variation_id' => 'required|exists:attributes,id',
         ]);
 
         try {

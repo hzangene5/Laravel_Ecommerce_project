@@ -13,4 +13,15 @@ function generateFileName($name){
     return $year .'_'. $month .'_'. $day .'_'. $hour .'_'. $minute .'_'. $second .'_'. $microsecond .'_'. $name;
 }
 
+function convertShamsiToGregorianDate($date){
+    if($date == null){
+     return null;
+    }
+    $pattern = "/[-\s]/";
+    $shamsiDateSpilit = preg_split($pattern, $date);
+    $arrayGergorianDate = verta()->getGregorian($shamsiDateSpilit[0],  $shamsiDateSpilit[1],  $shamsiDateSpilit[2]);
+    
+  return implode("-", $arrayGergorianDate) . " " . $shamsiDateSpilit[3];
+}
+
 ?>

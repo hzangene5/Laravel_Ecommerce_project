@@ -104,7 +104,7 @@ create products
       <div class="form-row">
         <div class="form-group col-md-3">
           <label for="name">نام</label>
-          <input class="form-control" id="name" name="name" type="text" value="{{ old('name') }}" >
+          <input class="form-control" id="name" name="name" type="text" value="{{ old('name') }}">
         </div>
 
         <div class="form-group col-md-3 ">
@@ -227,7 +227,7 @@ create products
 
         <div class="col-md-12">
           <hr>
-          <p>  هزینه ارسال : </p>
+          <p> هزینه ارسال : </p>
         </div>
 
         <div class="form-group col-md-3">

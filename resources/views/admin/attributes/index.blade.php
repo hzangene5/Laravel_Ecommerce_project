@@ -45,6 +45,11 @@ index attributes
          </tbody>
       </table>
     </div>
+
+    <div class="d-flex justify-content-center mt-5">
+       {{ $attributes->render()}}
+   </div>
+
   </div>
 </div>  
   @endsection
