@@ -38,21 +38,19 @@ __webpack_require__(/*! md.bootstrappersiandatetimepicker/dist/jquery.md.bootstr
     ;
   }); // Close any open menu accordions when window is resized below 768px
 
-  $(window).resize(function () {
-    if ($(window).width() < 768) {
-      $('.sidebar .collapse').collapse('hide');
-    }
+  if ($(window).width() < 768) {
+    $('.sidebar .collapse').collapse('hide');
+  }
 
-    ; // Toggle the side navigation when window is resized below 480px
+  ; // Toggle the side navigation when window is resized below 480px
 
-    if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
-      $("body").addClass("sidebar-toggled");
-      $(".sidebar").addClass("toggled");
-      $('.sidebar .collapse').collapse('hide');
-    }
+  if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
+    $("body").addClass("sidebar-toggled");
+    $(".sidebar").addClass("toggled");
+    $('.sidebar .collapse').collapse('hide');
+  }
 
-    ;
-  }); // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
+  ; // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
 
   $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function (e) {
     if ($(window).width() > 768) {
@@ -37781,6 +37779,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/scss/home/home.scss":
+/*!***************************************!*\
+  !*** ./resources/scss/home/home.scss ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./node_modules/moment/locale/af.js":
 /*!******************************************!*\
   !*** ./node_modules/moment/locale/af.js ***!
@@ -59482,6 +59493,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/admin": 0,
+/******/ 			"css/home": 0,
 /******/ 			"css/admin": 0
 /******/ 		};
 /******/ 		
@@ -59532,8 +59544,9 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/admin"], () => (__webpack_require__("./resources/js/admin/admin.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/admin"], () => (__webpack_require__("./resources/scss/admin/admin.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/admin"], () => (__webpack_require__("./resources/js/admin/admin.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/home","css/admin"], () => (__webpack_require__("./resources/scss/admin/admin.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/home","css/admin"], () => (__webpack_require__("./resources/scss/home/home.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

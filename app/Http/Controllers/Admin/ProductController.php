@@ -132,9 +132,9 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $productAttributes = $product->attributes()->with('attribute')->get();
-        $productVariation = $product->variations;
+        $productVariations = $product->variations;
         $images = $product->images;
-        return view('admin.products.show', compact('product', 'productAttributes', 'productVariation', 'images'));
+        return view('admin.products.show', compact('product', 'productAttributes', 'productVariations', 'images'));
     }
 
     /**
@@ -223,4 +223,53 @@ class ProductController extends Controller
     {
         //
     }
-}
+
+    public function editCategory(Request $request, Product $product){
+
+        $categories = Category::where('parent_id', '!=', 0)->get();
+        return view('admin.products.edit_category', compact('product','categories'));
+    }
+
+    public function updateCategory(Request $request, Product $product){
+
+        $request->validate([
+            'category_id' => 'required',
+            'attribute_ids' => 'required',
+            'attribute_ids.*' => 'required',
+            'variation_values' => 'required',
+            'variation_values.*.*' => 'required',
+            'variation_values.price.*' => 'integer',
+            'variation_values.quantity.*' => 'integer',
+
+        ]);
+
+        try {
+            DB::beginTransaction();
+           // $productImageController = new ProductImageController();
+           // $fileNameImages =  $productImageController->upload($request->primary_image, $request->images);
+
+           $product->update([
+                'category_id' => $request->category_id,
+            ]);
+
+            $ProductAttributeController = new ProductAttributeController();
+            $ProductAttributeController->change($request->attribute_ids, $product);
+
+            $category = Category::find($request->category_id);
+            $productVariationController = new ProductVariationController();
+            $productVariationController->change($request->variation_values, $category->attributes()->wherePivot('is_variation', 1)->first()->id, $product);
+
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollBack();
+
+            alert()->error('مشکل در ویرایش محصول  ', $ex->getMessage())->persistent('حله');
+            return redirect()->back();
+        }
+
+
+        alert()->success('با تشکر', ' محصول مورد نظر ویرایش شد');
+        return redirect()->route('admin.products.index');
+    }
+    }
+

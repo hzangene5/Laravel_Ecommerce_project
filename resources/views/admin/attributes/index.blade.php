@@ -9,13 +9,15 @@ index attributes
 <!-- Content Row -->
 <div class="row">
 
-  <div class="col-xl-12 col-md-12 mb-4 p-md-5 bg-white">
-    <div class="d-flex justify-content-between mb-4">
+  <div class="col-xl-12 col-md-12 mb-4 p-5 bg-white">
+    <div class="d-flex flex-column text-center flex-md-row justify-content-md-between mb-4">
       <h5 class="font-weight-bold"> لیست خصوصیت ها ({{$attributes->total()}})</h5>
-      <a class="btn btn-sm btn-outline-primary" href="{{route('admin.attributes.create')}}">
+    <div>
+    <a class="btn btn-sm btn-outline-primary" href="{{route('admin.attributes.create')}}">
         <i class="fa fa-plus"></i>
         ایجاد خصوصیت
       </a>
+    </div>
     </div>
     <div>
       <table class="table table-borderd table-striped text-center">
