@@ -20,71 +20,28 @@
         <nav>
           <ul class="mobile-menu text-right">
             <li class="menu-item-has-children">
-              <a href="index.html"> صفحه ای اصلی </a>
+              <a href="{{ route('home.index')}}"> صفحه ای اصلی </a>
             </li>
             <li class="menu-item-has-children">
-              <a href="shop.html">فروشگاه</a>
+              <a href="#">فروشگاه</a>
+              @php
+              $parentCategories = App\Models\Category::where('parent_id', 0)->get();
+              @endphp
               <ul class="dropdown">
+                @foreach($parentCategories as $parentCategory)
                 <li class="menu-item-has-children">
-                  <a href="#">مردانه</a>
+                  <a href="{{ route('home.categories.show', ['category' => $parentCategory->slug])}}">{{$parentCategory->name}}</a>
                   <ul class="dropdown">
-                    <li><a href="shop.html"> پیراهن </a></li>
-                    <li>
-                      <a href="#"> تی شرت </a>
-                    </li>
-                    <li>
-                      <a href="#"> پالتو </a>
-                    </li>
-                    <li>
-                      <a href="#"> لباس راحتی </a>
-                    </li>
-                    <li>
-                      <a href="#">لباس زیر</a>
-                    </li>
+                    @foreach($parentCategory->children as $childCategory)
+                    <li><a href="{{ route('home.categories.show', ['category' => $childCategory->slug])}}"> {{ $childCategory->name }} </a></li>
+                    @endforeach
                   </ul>
                 </li>
-                <li class="menu-item-has-children">
-                  <a href="#">زنانه</a>
-                  <ul class="dropdown">
-                    <li>
-                      <a href="product-details.html"> مانتو </a>
-                    </li>
-                    <li>
-                      <a href="#"> شومیز </a>
-                    </li>
-                    <li>
-                      <a href="#"> دامن </a>
-                    </li>
-                    <li>
-                      <a href="#">پالتو </a>
-                    </li>
-                    <li>
-                      <a href="#">لباس راحتی</a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item-has-children">
-                  <a href="#"> بچه گانه </a>
-                  <ul class="dropdown">
-                    <li>
-                      <a href="#"> ست لباس </a>
-                    </li>
-                    <li>
-                      <a href="#"> شلوارک </a>
-                    </li>
-                    <li>
-                      <a href="#"> ژاکت </a>
-                    </li>
-                    <li>
-                      <a href="#"> ست نوزاد </a>
-                    </li>
-                    <li>
-                      <a href="#"> پیراهن </a>
-                    </li>
-                  </ul>
-                </li>
+                @endforeach
               </ul>
             </li>
+
+
 
             <li><a href="contact-us.html">تماس با ما</a></li>
 
@@ -99,11 +56,18 @@
     <div class="mobile-curr-lang-wrap">
       <div class="single-mobile-curr-lang">
         <ul class="text-right">
-          <li class="my-3"><a href="login.html"> ورود </a></li>
+          @auth
+          <li class="my-3"><a href="{{ route('home.users_profile.index')}}"> پروفایل </a></li>
+          <li><a href="{{ route('logout')}}">خروج</a></li>
+          @else
+          <li class="my-3"><a href="{{ route('login')}}"> ورود </a></li>
           <li class="my-3">
-            <a href="register.html"> ایجاد حساب </a>
+            <a href="{{ route('register') }}"> ایجاد حساب </a>
           </li>
-          <li class="my-3"><a href="my-account.html"> پروفایل </a></li>
+
+          @endauth
+  
+    
         </ul>
       </div>
     </div>
