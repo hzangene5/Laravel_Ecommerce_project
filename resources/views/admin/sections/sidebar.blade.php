@@ -26,6 +26,29 @@
     فروشگاه
   </div>
 
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapsePages">
+      <i class="fas fa-fw fa-cart-users"></i>
+      <span> کاربران </span>
+    </a>
+    <div id="collapseUsers" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="{{ route('admin.users.index')}}">لیست کاربران</a>
+        <a class="collapse-item" href="{{ route('admin.roles.index')}}">گروه های کاربری</a>
+        <a class="collapse-item" href="{{ route('admin.permissions.index')}}">مجوز ها</a>
+      </div>
+    </div>
+  </li>
+
+  <hr class="sidebar-divider">
+
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    فروشگاه
+  </div>
+
   <!-- Nav Item - Brands -->
   <li class="nav-item">
     <a class="nav-link" href="{{ route('admin.brands.index') }}">

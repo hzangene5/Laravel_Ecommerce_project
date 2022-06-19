@@ -18,7 +18,10 @@ use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\CompareController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\Rolecontroller;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Home\AddressController;
 use App\Http\Controllers\Home\PaymentController;
 use App\Http\Controllers\Home\ProductController as HomeProductController;
@@ -40,6 +43,7 @@ use Laravel\Fortify\Http\Responses\LogoutResponse;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 //Route::get('/', function () {
 //    return view('admin.layouts.admin');
@@ -88,6 +92,9 @@ Route::prefix('/admin-panel/management')->name('admin.')->group( function () {
     Route::resource('coupons',CouponController::class);
     Route::resource('orders',OrderController::class);
     Route::resource('transactions',TransactionController::class);
+    Route::resource('users',UserController::class);
+    Route::resource('permissions',PermissionController::class);
+    Route::resource('roles',Rolecontroller::class);
 
 
 
@@ -112,6 +119,7 @@ Route::prefix('/admin-panel/management')->name('admin.')->group( function () {
     Route::get('/products/{product}/category-edit', [ProductController::class, 'editCategory'])->name('products.category.edit');
     Route::put('/products/{product}/category-update', [ProductController::class, 'updateCategory'])->name('products.category.update');
   });
+
 
 
 
@@ -146,14 +154,28 @@ Route::get('/logout', function () {
 
 Route::get('/login/{provider}', [AuthController::class,'redirectToProvider'])->name('provider.login');
 Route::get('/login/{provider}/callback', [AuthController::class,'handleProviderCallback']);
-//Route::get('/logout, [AuthController::class,'Logout'])->name('Logout');
+// Route::get('/logout, [AuthController::class,'Logout'])->name('Logout');
 
 
 
 
-// Route::get('/test', function(){
-//      dd(session()->get('coupon'));
-// });
+
+Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('home.about-us');
+Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('home.contact-us');
+Route::post('/contact-us-form', [HomeController::class, 'contactUsForm'])->name('home.contact-us.form');
+
+
+
+
+
+
+
+
+
+
+Route::get('/test', function(){
+     dd(session()->get('coupon'));
+});
 
 
 
