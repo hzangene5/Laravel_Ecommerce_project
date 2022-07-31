@@ -1,5 +1,7 @@
 <?php
 
+// use App\Channels\SmsChannels;
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\AttributeController;
@@ -28,8 +30,11 @@ use App\Http\Controllers\Home\ProductController as HomeProductController;
 use App\Http\Controllers\Home\UserProfileController;
 use App\Http\Controllers\Home\WishlistController;
 use App\Models\User;
+use App\Notifications\OTPSms;
 use Illuminate\Auth\Events\Logout;
 use Laravel\Fortify\Http\Responses\LogoutResponse;
+
+use Ghasedak\Laravel\GhasedakFacade;
 
 //use App\Notifications\OTPSms;
 
@@ -78,7 +83,7 @@ Route::post('/payment', [PaymentController::class, 'payment'])->name('home.payme
 Route::get('/payment-verify/{gatewayName}', [PaymentController::class, 'paymentVerify'])->name('home.payment_verify');
 
 
-
+////->middleware(['role:admin|user-management'])
  
 
 Route::prefix('/admin-panel/management')->name('admin.')->group( function () {
@@ -142,9 +147,7 @@ Route::prefix('/admin-panel/management')->name('admin.')->group( function () {
   Route::get('/get-province-cities-list', [AddressController::class,'getProvinceCitiesList'])->name('addresses.store');
 
 
-Route::get('/admin-panel/dashboard', function () {
-  return view('admin.dashboard');
-})->name('dashboard');
+Route::get('/admin-panel/dashboard',[AdminController::class, 'index'])->name('dashboard');
 
 
 Route::get('/logout', function () {
@@ -152,22 +155,17 @@ Route::get('/logout', function () {
   return redirect()->route('home.index');
 })->name('Logout');
 
-Route::get('/login/{provider}', [AuthController::class,'redirectToProvider'])->name('provider.login');
-Route::get('/login/{provider}/callback', [AuthController::class,'handleProviderCallback']);
+// Route::get('/login/{provider}', [AuthController::class,'redirectToProvider'])->name('provider.login');
+// Route::get('/login/{provider}/callback', [AuthController::class,'handleProviderCallback']);
 // Route::get('/logout, [AuthController::class,'Logout'])->name('Logout');
-
-
-
+Route::any('/login', [AuthController::class,'login'])->name('login');
+Route::post('/check-otp', [AuthController::class,'checkOtp']);
+Route::post('/resend-otp', [AuthController::class,'resendOtp']);
 
 
 Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('home.about-us');
 Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('home.contact-us');
 Route::post('/contact-us-form', [HomeController::class, 'contactUsForm'])->name('home.contact-us.form');
-
-
-
-
-
 
 
 
@@ -181,4 +179,44 @@ Route::get('/test', function(){
 
 
 
+// Route::get('/test2', function(){ 
+ 
+//   $user = User::find(1);
+//   $user->notify(new OTPSms(1234));
+   
+// });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// try 
+// {
+//     $template = "Test";
+//     $lineNumber = "10008642";
+//     $type = 1;
+//     $receptor = "09332625618";
+//     $api = new \Ghasedak\GhasedakApi(env('GHASEDAK_API_KEY'));
+//     $api->Verify($receptor, $type, $template, "1234");
+// }
+// catch(\Ghasedak\Exceptions\ApiException $e){
+//     echo $e->errorMessage();
+// }
+// catch(\Ghasedak\Exceptions\HttpException $e){
+//    echo $e->errorMessage();
+// }

@@ -37,6 +37,7 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
+       
         $request->validate([
             'name' => 'required',
             'code' => 'required|unique:coupons,code',

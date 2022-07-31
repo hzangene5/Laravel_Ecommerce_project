@@ -36,6 +36,36 @@
 
 
   });
+
+
+  $(document).ready(function(event) {
+
+let scroll_top = $('.scroll-top');
+
+console.log(scroll_top);
+
+scroll_top.hide(300);
+
+$(window).scroll(function() {
+
+    if( $(window).scrollTop() > 200 ) {
+        scroll_top.show(300);
+    } else {
+        scroll_top.hide(300);
+    }
+
+});
+
+scroll_top.click(function() {
+    $('html').animate({scrollTop: 0}, 1000);
+});
+
+});
+
+
+
+
+
 </script>
 @endsection
 
@@ -110,16 +140,16 @@
 
 <div class="product-area pb-70">
   <div class="container">
-    <div class="section-title text-center pb-40">
-      <h2> لورم ایپسوم </h2>
+    <div class="section-title text-center pb-40 mb-5">
+      <h2> فروشگاه اینترنتی </h2>
       <p>
-        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-        چاپگرها و متون
-        بلکه روزنامه و مجله
+    فروشگاه اینترنتی محلی برای خرید آسان برای کسانی که به کیفیت و جنس محصول اهمیت می دهند با تنوع و 
+    قیمت مناسب در خدمت شما عزیزان می باشد
       </p>
     </div>
-    <div class="product-tab-list nav pb-60 text-center flex-row-reverse">
-      <a class="active" href="#product-1" data-toggle="tab">
+
+    <!-- <div class="product-tab-list nav pb-60 text-center flex-row-reverse">
+      <a class="active" href="" data-toggle="tab">
         <h4>مردانه</h4>
       </a>
       <a href="#product-2" data-toggle="tab">
@@ -128,7 +158,9 @@
       <a href="#product-3" data-toggle="tab">
         <h4>بچه گانه</h4>
       </a>
-    </div>
+    </div> -->
+
+
     <div class="tab-content jump-2">
       <div id="product-1" class="tab-pane active">
         <div class="ht-products product-slider-active owl-carousel">

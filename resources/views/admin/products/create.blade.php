@@ -14,7 +14,8 @@ create products
   });
 
   // show file name
-  $('#primary_iamge').change(function() {
+  
+  $('#primary_image').change(function() {
     // get the file name
     var fileName = $(this).val();
     // replace the "choose a file" label
@@ -23,7 +24,7 @@ create products
   });
 
   // show file name
-  $('#iamges').change(function() {
+  $('#images').change(function() {
     // get the file name
     var fileName = $(this).val();
     // replace the "choose a file" label

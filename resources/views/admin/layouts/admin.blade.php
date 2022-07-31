@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Webprog.ir - @yield('title')</title>
+  <title>Ecommerce - @yield('title')</title>
 
   <!-- Custom styles for this template-->
   <link href="{{ asset('/css/admin.css' )}}" rel="stylesheet">

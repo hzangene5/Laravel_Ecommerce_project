@@ -4,6 +4,7 @@ require("./files/rating.js");
 
 
 
+
 (function ($) {
     "use strict";
 

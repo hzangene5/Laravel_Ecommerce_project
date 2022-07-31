@@ -20,18 +20,43 @@
 
 <body>
 
-<div class="wrapper">
-
-@include('home.sections.header')
-
-@include('home.sections.mobile_off_canvas')
+  <div class="wrapper text-center">
 
 
-@yield('content')
 
-@include('home.sections.footer')
+    <div id="preloader">
+      <div id="loader"></div>
+    </div>
 
-</div>
+
+
+
+
+
+
+
+
+    <!-- <div id="overlayer">
+
+      <span class="loader">
+        <span class="loader-inner"> <h1>wellcome</h1></span>
+      </span> -->
+  </div>
+
+
+
+
+
+  @include('home.sections.header')
+
+  @include('home.sections.mobile_off_canvas')
+
+
+  @yield('content')
+
+  @include('home.sections.footer')
+
+  </div>
 
 
   <!--JavaScript-->
@@ -39,11 +64,19 @@
   <script src="{{ asset('/js/home/plugins.js') }}"></script>
   <script src="{{ asset('/js/home.js') }}"></script>
 
+
+  <script>
+    $(window).load(function() {
+      $('#preloader').delay(500).fadeOut("fast");
+      $('#loader').delay(500).fadeOut("fast");
+    });
+  </script>
+
   @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 
   @yield('script')
-  
-  {!!  GoogleReCaptchaV3::init() !!}
+
+  {!! GoogleReCaptchaV3::init() !!}
 
 </body>
 

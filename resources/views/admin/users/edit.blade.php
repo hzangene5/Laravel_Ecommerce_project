@@ -76,4 +76,3 @@ edit users
 </div>
 
 @endsection
-"illuminate/support": "^9.0",

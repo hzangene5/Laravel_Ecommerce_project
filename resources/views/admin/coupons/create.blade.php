@@ -63,14 +63,14 @@ create coupons
         </div>
 
         <div class="form-group col-md-3">
-          <label> تاریخ شروع حراجی </label>
+          <label> تاریخ انقضا </label>
           <div class="input-group">
             <div class="input-group-prepend order-2">
               <span class="input-group-text" id="expireDate">
                 <i class="fas fa-clock"></i>
               </span>
             </div>
-            <input type="text" id="expireInput" name="expire_at" class="form-control">
+            <input type="text" id="expireInput" name="expired_at" class="form-control">
           </div>
         </div>
 

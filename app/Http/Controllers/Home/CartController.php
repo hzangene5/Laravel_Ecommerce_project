@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Home;
-
+// // 
 use Cart;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
@@ -14,6 +14,10 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+
+
+
+
   public function add(Request $request)
   {
     $request->validate([
@@ -35,7 +39,7 @@ class CartController extends Controller
 
     if (\Cart::get($rowId) == null) {
 
-      Cart::add(array(
+     \Cart::add(array(
         'id' => $rowId,
         'name' => $product->name,
         'price' => $productVariation->is_sale ? $productVariation->sale_price : $productVariation->price,
@@ -44,7 +48,7 @@ class CartController extends Controller
         'associatedModel' => $product,
       ));
     } else {
-      alert()->warning('محصول مورد نظر به سبد خرید شما اضافه شده است. ', 'باتشکر ');
+      alert()->warning('محصول مورد نظر به سبد خرید شما قبلا اضافه شده است. ', 'باتشکر ');
       return redirect()->back();
     }
 
@@ -52,6 +56,9 @@ class CartController extends Controller
     alert()->success('محصول مورد نظر به سبد خرید شما اضافه شد ', 'باتشکر ');
     return redirect()->back();
   }
+
+
+
 
   public function index()
   {

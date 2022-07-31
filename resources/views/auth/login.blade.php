@@ -4,6 +4,152 @@
 صفحه ی ورود
 @endsection
 
+@section('script')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    let loginToken;
+
+    $('#checkOTPForm').hide();
+    $('#resendOTPButton').hide();
+
+    $('#loginForm').submit(function(event) {
+
+        // console.log($('#cellphoneInput').val());
+        event.preventDefault();
+
+        $.post("{{url('/login')}}",
+
+            {
+                '_token': "{{ csrf_token() }}",
+                'cellphone': $('#cellphoneInput').val()
+
+            },
+            function(response, status) {
+                console.log(response, status);
+                loginToken = response.login_token;
+
+                swal.fire({
+                    icon: 'success',
+                    text: 'رمز یکبار مصرف ارسال شد',
+                    button: 'حله!',
+                    timer: 2000
+                });
+
+
+
+                $('#loginForm').fadeOut();
+                $('#checkOTPForm').fadeIn();
+                timer();
+
+            }).fail(function(response) {
+
+            $('#cellphoneInput').addClass('mb-1');
+            $('#cellphoneInputError').fadeIn();
+            $('#cellphoneInputErrorText').html(response.responseJSON.errors.cellphone[0]);
+        })
+
+    });
+
+
+
+    $('#checkOTPForm').submit(function(event) {
+
+        event.preventDefault();
+
+
+        $.post("{{url('/check-otp')}}",
+
+            {
+                '_token': "{{ csrf_token() }}",
+                'otp': $('#checkOTPInput').val(),
+                'login_token': loginToken
+
+            },
+            function(response, status) {
+                console.log(response, status);
+
+
+                $(location).attr('href', "{{ route('home.index') }}");
+
+            }).fail(function(response) {
+
+            console.log(response.responseJSON);
+            $('#checkOTPInput').addClass('mb-1');
+            $('#checkOTPInputError').fadeIn();
+            $('#checkOTPInputErrorText').html(response.responseJSON.errors.otp[0]);
+        })
+    });
+
+
+
+    $('#resendOTPButton').click(function(event) {
+
+        // console.log($('#cellphoneInput').val());
+        event.preventDefault();
+
+        $.post("{{url('/resend-otp')}}",
+
+            {
+                '_token': "{{ csrf_token() }}",
+                'login_token': loginToken
+
+            },
+            function(response, status) {
+                console.log(response, status);
+                loginToken = response.login_token;
+
+                swal.fire({
+                    icon: 'success',
+                    text: 'رمز یکبار مصرف ارسال شد',
+                    button: 'حله!',
+                    timer: 2000
+                });
+
+
+
+                $('#resendOTPButton').fadeOut();
+                timer();
+                $('#resendOTPTime').fadeIn();
+               
+
+            }).fail(function(response) {
+
+                swal.fire({
+                    icon: 'error',
+                    text: ' مشکل در ارسال دوباره رمز یکبار مصرف دوباره تلاش کنید ',
+                    button: 'حله!',
+                    timer: 2000
+                });
+
+        })
+
+    });
+
+    function timer() {
+
+        let time = "1:01";
+        let interval = setInterval(function() {
+            let countdown = time.split(':');
+            let minutes = parseInt(countdown[0], 10);
+            let seconds = parseInt(countdown[1], 10);
+            --seconds;
+            minutes = (seconds < 0) ? --minutes : minutes;
+            if (minutes < 0) {
+                clearInterval(interval);
+                $('#resendOTPTime').hide();
+                $('#resendOTPButton').fadeIn();
+            };
+            seconds = (seconds < 0) ? 59 : seconds;
+            seconds = (seconds < 10) ? '0' + seconds : seconds;
+            //minutes = (minutes < 10) ?  minutes : minutes;
+            $('#resendOTPTime').html(minutes + ':' + seconds);
+            time = minutes + ':' + seconds;
+        }, 1000);
+    }
+</script>
+
+@endsection
+
 
 @section('content')
 
@@ -36,35 +182,43 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="{{ route('login')}}" method="post">
-                                        <input name="email" placeholder="ایمیل" class="@error('email') mb-1 @enderror" type="email" value="{{ old('email')}}">
-                                        @error('email')
-                                        <div class="input-error-validation">
-                                            <strong>{{ $message }}</strong>
+
+                                    <form id="loginForm">
+                                        <input id="cellphoneInput" placeholder="شماره تلفن همراه" type="text">
+
+                                        <div id="cellphoneInputError" class="input-error-validation">
+                                            <strong id="cellphoneInputErrorText"></strong>
                                         </div>
-                                        @enderror
-                                        <input type="password" name="password" class="@error('password') mb-1 @enderror" placeholder="رمز عبور">
-                                        @error('password')
-                                        <div class="input-error-validation">
-                                            <strong>{{ $message }}</strong>
-                                        </div>
-                                        @enderror
-                                        <div class="button-box">
-                                            <div class="login-toggle-btn d-flex justify-content-between">
-                                                <div>
-                                                    <input name="remember" type="checkbox"
-                                                     value="{{ old('remember') ? 'checked' : '' }}"
-                                                    >
-                                                    <label> مرا بخاطر بسپار </label>
-                                                </div>
-                                                <a href="{{ route( 'password.request' )}}"> فراموشی رمز عبور ! </a>
-                                            </div>
-                                            <button type="submit">ورود</button>
-                                            <a href="{{ route('provider.login', ['provider' => 'google'])}}" class="btn btn-google btn-block mt-4">
-                                                <i class="sli sli-social-google"></i> ورود با حساب گوگل
-                                            </a>
+
+                                        <div class="button-box d-flex justify-content-between">
+
+                                            <button type="submit">ارسال</button>
                                         </div>
                                     </form>
+
+
+                                    <form id="checkOTPForm">
+                                        <input id="checkOTPInput" placeholder="رمز یکبار مصرف را وارد نمایید" type="text">
+
+                                        <div id="checkOTPInputError" class="input-error-validation">
+                                            <strong id="checkOTPInputErrorText"></strong>
+                                        </div>
+
+                                        <div class="button-box d-flex justify-content-between">
+
+                                            <button type="submit">ورود</button>
+
+                                            <div>
+                                                <button id="resendOTPButton" type="submit">ارسال مجدد</button>
+                                                <span id="resendOTPTime"></span>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+
+
+
                                 </div>
                             </div>
                         </div>

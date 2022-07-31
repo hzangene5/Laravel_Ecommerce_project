@@ -21,7 +21,7 @@
                                 <li><a href="{{ route('home.contact-us')}} "> تماس با ما </a></li>
 
                                 <li class="angle-shape">
-                                    <a href="#"> فروشگاه </a>
+                                    <a href="{{ route('home.index')}}"> فروشگاه </a>
                                     @php
                                     $parentCategories = App\Models\Category::where('parent_id' , 0)->get();
                                     @endphp
@@ -150,6 +150,7 @@
                                 <ul class="text-right">
                                     @auth
                                     <li><a href="{{route('home.users_profile.index')}}">پروفایل</a></li>
+                                    <li><a href="{{route('logout')}}">خروج</a></li>
                                     @else
                                     <li><a href="{{ route('login') }}">ورود</a></li>
                                     <li>

@@ -188,7 +188,7 @@
   <li class="nav-item dropdown no-arrow">
     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
-      <!-- <span class="ml-2 d-none d-lg-inline text-gray-600 small"> علی شیخ </span>
+      <!-- <span class="ml-2 d-none d-lg-inline text-gray-600 small"> </span>
       <img class="img-profile rounded-circle" src="{{asset('/images/admin/user.jpg')}}"> -->
     </a>
     <!-- Dropdown - User Information -->
@@ -228,7 +228,7 @@
         <div class="modal-body"> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک
           است. </div>
         <div class="modal-footer">
-          <a class="btn btn-primary" href="login.html"> خروج </a>
+          <a class="btn btn-primary" href="{{ route('Logout')}}"> خروج </a>
           <button class="btn btn-secondary" type="button" data-dismiss="modal"> لغو </button>
         </div>
       </div>
